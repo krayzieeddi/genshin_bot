@@ -1,0 +1,14 @@
+{
+  "name": "genshin-bot",
+  "version": "1.0.0",
+  "description": "a bot for our genshin discord with the bois",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "me and the bois",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.4.1"
+  }
+}
