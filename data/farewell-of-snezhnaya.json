@@ -1,11 +1,11 @@
- [
+[
   {
     "name": "Tartaglia",
     "element": "Hydro",
     "type": "character",
     "rating": 5,
     "isFeatured": true,
-    "src": "Tartaglia.gif"
+    "src": "Tartaglia.png"
   },
   {
     "name": "Keqing",
@@ -13,7 +13,7 @@
     "type": "character",
     "rating": 5,
     "id": "749031397896749127",
-    "src": "Keqing.gif"
+    "src": "Keqing.png"
   },
   {
     "name": "Mona",
@@ -21,7 +21,7 @@
     "type": "character",
     "rating": 5,
     "id": "749031417895452754",
-    "src": "Mona.gif"
+    "src": "Mona.png"
   },
   {
     "name": "Qiqi",
@@ -29,7 +29,7 @@
     "type": "character",
     "rating": 5,
     "id": "749031442494914661",
-    "src": "Qiqi.gif"
+    "src": "Qiqi.png"
   },
   {
     "name": "Diluc",
@@ -37,7 +37,7 @@
     "type": "character",
     "rating": 5,
     "id": "749031368255602861",
-    "src": "Diluc.gif"
+    "src": "Diluc.png"
   },
   {
     "name": "Jean",
@@ -45,7 +45,7 @@
     "type": "character",
     "rating": 5,
     "id": "749031380716879922",
-    "src": "Jean.gif"
+    "src": "Jean.png"
   },
   {
     "name": "Diona",
@@ -53,7 +53,7 @@
     "type": "character",
     "rating": 4,
     "isFeatured": true,
-    "src": "Diona.gif"
+    "src": "Diona.png"
   },
   {
     "name": "Ningguang",
@@ -62,7 +62,7 @@
     "rating": 4,
     "id": "749031423905759253",
     "isFeatured": true,
-    "src": "Ningguang.gif"
+    "src": "Ningguang.png"
   },
   {
     "name": "Beidou",
@@ -71,7 +71,7 @@
     "rating": 4,
     "id": "749031334273613904",
     "isFeatured": true,
-    "src": "Beidou.gif"
+    "src": "Beidou.png"
   },
   {
     "name": "Sucrose",
@@ -79,7 +79,7 @@
     "type": "character",
     "rating": 4,
     "id": "749031457019658401",
-    "src": "Sucrose.gif"
+    "src": "Sucrose.png"
   },
   {
     "name": "Chongyun",
@@ -87,7 +87,7 @@
     "type": "character",
     "rating": 4,
     "id": "749031361934917682",
-    "src": "Chongyun.gif"
+    "src": "Chongyun.png"
   },
   {
     "name": "Noelle",
@@ -95,7 +95,7 @@
     "type": "character",
     "rating": 4,
     "id": "749031431132545057",
-    "src": "Noelle.gif"
+    "src": "Noelle.png"
   },
   {
     "name": "Bennett",
@@ -111,7 +111,7 @@
     "type": "character",
     "rating": 4,
     "id": "749031374052393120",
-    "src": "Fischl.gif"
+    "src": "Fischl.png"
   },
   {
     "name": "Xingqiu",
@@ -119,7 +119,7 @@
     "type": "character",
     "rating": 4,
     "id": "749031483263680563",
-    "src": "Xingqiu.gif"
+    "src": "Xingqiu.png"
   },
   {
     "name": "Xiangling",
@@ -127,7 +127,7 @@
     "type": "character",
     "rating": 4,
     "id": "749031470726905977",
-    "src": "Xiangling.gif"
+    "src": "Xiangling.png"
   },
   {
     "name": "Razor",
@@ -135,7 +135,7 @@
     "type": "character",
     "rating": 4,
     "id": "749031449864306719",
-    "src": "Razor.gif"
+    "src": "Razor.png"
   },
   {
     "name": "Barbara",
@@ -143,7 +143,7 @@
     "type": "character",
     "rating": 4,
     "id": "749031327726174398",
-    "src": "Barbara.gif"
+    "src": "Barbara.png"
   },
   {
     "name": "Rust",
