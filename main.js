@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 const Discord = require('discord.js');
 const fs = require('fs');
 
@@ -14,8 +12,13 @@ let fiveStars;
 let fourStars;
 let threeStars;
 
-let pity5Star = 0;
-let pity4Star = 0;
+let urRoll;
+let multiRolls;
+
+let pity5StarR = 0;
+let pity4StarR = 0;
+let pity5StarL = 0;
+let pity4StarL = 0;
 let isLast4StarRateUp = true;
 let isLast5StarRateUp = true;
 
@@ -24,84 +27,123 @@ client.once('ready', () => {
 });
 
 client.on("message", (msg) => {
-    switch(msg.content.substring(1).toLowerCase()){
-        case "pull1r":
-            regularSinglePull(msg);
-            break;
-        case "pull1l":
-            limitedSinglePull(msg);
-            break;
-        case "pity4r":
-            msg.reply(`You are at ${pity4Star} pity for 4*`);
-            break;
-        case "pity5r":
-            msg.reply(`You are at ${pity5Star} pity for 5*`);
-            break;
+    if (msg.content.startsWith(prefix)){
+        switch(msg.content.substring(1).toLowerCase()){
+            case "pull1r":
+                urRoll = regularSinglePull();
+                msg.reply(`Here's what you got bitch! Name: ${urRoll.name} | Rating: ${urRoll.rating}* | Type: ${urRoll.type}`, { files: [`./${urRoll.type}s/${urRoll.src}`] });
+                break;
+            case "pull1l":
+                urRoll = limitedSinglePull();
+                msg.reply(`Here's what you got bitch! Name: ${urRoll.name} | Rating: ${urRoll.rating}* | Type: ${urRoll.type}`, { files: [`./${urRoll.type}s/${urRoll.src}`] });
+                break;
+            case "pity4r":
+                msg.reply(`You are at ${pity4StarR} pity for 4* on the regular banner`);
+                break;
+            case "pity5r":
+                msg.reply(`You are at ${pity5StarR} pity for 5* on the regular banner`);
+                break;
+            case "pity4l":
+                msg.reply(`You are at ${pity4StarL} pity for 4* on the limited banner`);
+                break;
+            case "pity5l":
+                msg.reply(`You are at ${pity5StarL} pity for 5* on the limited banner`);
+                break;
+            case "pull10r":
+                multiRolls = [];
+                for(i = 0; i < 10; i++){
+                    urRoll = regularSinglePull();
+                    multiRolls.push(`./${urRoll.type}s/${urRoll.src}`);
+                }
+                msg.reply("Here's what you got!", { files: multiRolls })
+                break;
+            case "pull10l":
+                multiRolls = [];
+                for(i = 0; i < 10; i++){
+                    urRoll = limitedSinglePull();
+                    multiRolls.push(`./${urRoll.type}s/${urRoll.src}`);
+                }
+                msg.reply("Here's what you got!", { files: multiRolls })
+                break;
+        }
     }
 });
 
-client.login("Nzc2NzYyOTQ5MTE2NzU1OTc4.X65m3g.EblC1TCAHGf_j32TsRn9t5qfHBc");
+client.login("Nzc3ODkxODE0NjM5NDAzMDI4.X7KCNQ.CEGn0WYlz9lEnvtLOtwRzpWRs3o");
 
-function limitedSinglePull(msg) {
+function limitedSinglePull() {
     updatePools(limitedBanner);
     let pool;
     let isRateUpPull = false;
 
-    if(pity5Star == 0){
+    if(pity5StarL == 89){
         pool = fiveStars;
-        pity5Star = 0;
-    } else if (pity4Star == 9){
+        pity5StarL = 0;
+        pity4StarL++;
+    } else if (pity4StarL == 9){
         pool = fourStars;
-        pity4Star = 0;
+        pity4StarL = 0;
+        pity5StarL++;
     } else{
         pool = bannerPull();
-        updatePity(pool);;
+        updatePity(pool, 'lim');
     }
 
-    if(pool[0].rating > 3){
+    if(pool[0].rating == 4){
         if(isLast4StarRateUp){
-            
+            isRateUpPull = Math.round(Math.random()) == 1;
+            if(!isRateUpPull){
+                isLast4StarRateUp = false;
+            }
+        } else {
+            isRateUpPull = true;
+        }
+    } else if (pool[0].rating == 5){
+        if(isLast5StarRateUp){
+            isRateUpPull = Math.round(Math.random()) == 1;
+            if(!isRateUpPull){
+                isLast5StarRateUp = false;
+            }
+        } else {
+            isRateUpPull = true;
         }
     }
 
-
     let updatedPool = changePoolBasedOnRateUp(isRateUpPull, pool);
 
-    let ranObj = updatedPool[Math.floor(Math.random() * updatedPool.length)];
-    msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-
-    // if (pity5Star == 89) {
-    //     pool = fiveStars;
-    //     let ranObj = fiveStars[Math.round(Math.random() * fiveStars.length)];
-    //     msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-    //     pity5Star = 0;
-    // } else if (pity4Star == 0) {
-    //     let ranObj = fourStars[Math.round(Math.random() * fourStars.length)];
-    //     msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`,] });
-    //     pity5Star = 0;
-    // } else {
-    //     let ranObj = pool[Math.round(Math.random() * pool.length)];
-    //     msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-    //     updatePity(pool);
-    // }
+    return ranObj = updatedPool[Math.floor(Math.random() * updatedPool.length)];
 }
 
-function regularSinglePull(msg) {
+function regularSinglePull() {
     updatePools(regularBanner);
-    let pool = bannerPull();
-    if (pity5Star == 89) {
-        let ranObj = fiveStars[Math.round(Math.random() * fiveStars.length)];
-        msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-        pity5Star = 0;
-    } else if (pity4Star == 9) {
-        let ranObj = fourStars[Math.round(Math.random() * fourStars.length)];
-        msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-        pity4Star = 0;
-    } else {
-        let ranObj = pool[Math.floor(Math.random() * pool.length)];
-        msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-        updatePity(pool);
+    let pool;
+
+    if(pity5StarR == 89){
+        pool = fiveStars;
+        pity5StarR = 0;
+        pity4StarR++;
+    } else if (pity4StarR == 9){
+        pool = fourStars;
+        pity4StarR = 0;
+        pity5StarR++;
+    } else{
+        pool = bannerPull();
+        updatePity(pool, 'reg');
     }
+    return ranObj = pool[Math.floor(Math.random() * pool.length)];
+    // if (pity5StarR == 89) {
+    //     let ranObj = fiveStars[Math.floor(Math.random() * fiveStars.length)];
+    //     msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
+    //     pity5StarR = 0;
+    // } else if (pity4StarR == 9) {
+    //     let ranObj = fourStars[Math.floor(Math.random() * fourStars.length)];
+    //     msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
+    //     pity4StarR = 0;
+    // } else {
+    //     let ranObj = pool[Math.floor(Math.random() * pool.length)];
+    //     msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
+    //     updatePity(pool, 'reg');
+    // }
 }
 
 function changePoolBasedOnRateUp(isRateUpPull, pool){
@@ -117,25 +159,39 @@ function changePoolBasedOnRateUp(isRateUpPull, pool){
     }
 }
 
-function updatePity(pool) {
+function updatePity(pool, bannerType) {
     switch (pool[0].rating) {
         case 4:
-            pity4Star = 0;
-            pity5Star++;
+            if(bannerType == 'lim'){
+                pity4StarL = 0;
+                pity5StarL++;
+            } else {
+                pity4StarR = 0;
+                pity5StarR++;
+            }
             break;
         case 5:
-            pity4Star++;
-            pity5Star = 0;
+            if(bannerType == 'lim'){
+                pity4StarL++;
+                pity5StarL = 0;
+            } else {
+                pity4StarR++;
+                pity5StarR = 0;
+            }
             break;
         default:
-            pity4Star++;
-            pity5Star++;
+            if(bannerType == 'lim'){
+                pity4StarL++;
+                pity5StarL++;
+            } else {
+                pity4StarR++;
+                pity5StarR++;
+            }
             break;
     }
 }
 
 function bannerPull(){
-
     let ranNum = Math.round(Math.random() * 1000);
     if(ranNum < 6)
         return fiveStars;
@@ -175,182 +231,4 @@ function shuffleArray(array) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
-=======
-const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
-const Discord = require('discord.js');
-const fs = require('fs');
-
-const client = new Discord.Client();
-
-const prefix = '!';
-
-const regularBanner = JSON.parse(fs.readFileSync("./data/wanderlust-invocation.json", ));
-const limitedBanner = JSON.parse(fs.readFileSync("./data/farewell-of-snezhnaya.json", ));
-
-let fiveStars;
-let fourStars;
-let threeStars;
-
-let pity5Star = 0;
-let pity4Star = 0;
-let isLast4StarRateUp = true;
-let isLast5StarRateUp = true;
-
-client.once('ready', () => {
-    console.log('kekw in the chat!');
-});
-
-client.on("message", (msg) => {
-    switch(msg.content.substring(1).toLowerCase()){
-        case "pull1r":
-            regularSinglePull(msg);
-            break;
-        case "pull1l":
-            limitedSinglePull(msg);
-            break;
-        case "pity4r":
-            msg.reply(`You are at ${pity4Star} pity for 4*`);
-            break;
-        case "pity5r":
-            msg.reply(`You are at ${pity5Star} pity for 5*`);
-            break;
-    }
-});
-
-client.login("Nzc2NzYyOTQ5MTE2NzU1OTc4.X65m3g.EblC1TCAHGf_j32TsRn9t5qfHBc");
-
-function limitedSinglePull(msg) {
-    updatePools(limitedBanner);
-    let pool;
-    let isRateUpPull = false;
-
-    if(pity5Star == 0){
-        pool = fiveStars;
-        pity5Star = 0;
-    } else if (pity4Star == 9){
-        pool = fourStars;
-        pity4Star = 0;
-    } else{
-        pool = bannerPull();
-        updatePity(pool);;
-    }
-
-    if(pool[0].rating > 3){
-        if(isLast4StarRateUp){
-            
-        }
-    }
-
-
-    let updatedPool = changePoolBasedOnRateUp(isRateUpPull, pool);
-
-    let ranObj = updatedPool[Math.floor(Math.random() * updatedPool.length)];
-    msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-
-    // if (pity5Star == 89) {
-    //     pool = fiveStars;
-    //     let ranObj = fiveStars[Math.round(Math.random() * fiveStars.length)];
-    //     msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-    //     pity5Star = 0;
-    // } else if (pity4Star == 0) {
-    //     let ranObj = fourStars[Math.round(Math.random() * fourStars.length)];
-    //     msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`,] });
-    //     pity5Star = 0;
-    // } else {
-    //     let ranObj = pool[Math.round(Math.random() * pool.length)];
-    //     msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-    //     updatePity(pool);
-    // }
-}
-
-function regularSinglePull(msg) {
-    updatePools(regularBanner);
-    let pool = bannerPull();
-    if (pity5Star == 89) {
-        let ranObj = fiveStars[Math.round(Math.random() * fiveStars.length)];
-        msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-        pity5Star = 0;
-    } else if (pity4Star == 9) {
-        let ranObj = fourStars[Math.round(Math.random() * fourStars.length)];
-        msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-        pity4Star = 0;
-    } else {
-        let ranObj = pool[Math.floor(Math.random() * pool.length)];
-        msg.reply(`Here's what you got bitch! Name: ${ranObj.name} | Rating: ${ranObj.rating}* | Type: ${ranObj.type}`, { files: [`./${ranObj.type}s/${ranObj.src}`] });
-        updatePity(pool);
-    }
-}
-
-function changePoolBasedOnRateUp(isRateUpPull, pool){
-    let newPool = [];
-    if(isRateUpPull){
-        pool.forEach(i => {
-            if(i.isFeatured == true)
-                newPool.push(i);
-        });
-        return newPool;
-    } else {
-        return pool;
-    }
-}
-
-function updatePity(pool) {
-    switch (pool[0].rating) {
-        case 4:
-            pity4Star = 0;
-            pity5Star++;
-            break;
-        case 5:
-            pity4Star++;
-            pity5Star = 0;
-            break;
-        default:
-            pity4Star++;
-            pity5Star++;
-            break;
-    }
-}
-
-function bannerPull(){
-
-    let ranNum = Math.round(Math.random() * 1000);
-    if(ranNum < 6)
-        return fiveStars;
-    else if(ranNum >= 6 && ranNum < 57)
-        return fourStars;
-    else
-        return threeStars;
-
-}
-
-function updatePools(bannerData) {
-    fiveStars = [];
-    fourStars = [];
-    threeStars = [];
-
-    bannerData.forEach(i => {
-        switch (i.rating) {
-            case 5:
-                fiveStars.push(i);
-                break;
-            case 4:
-                fourStars.push(i);
-                break;
-            case 3:
-                threeStars.push(i);
-                break;
-        }
-    });
-
-    shuffleArray(fiveStars);
-    shuffleArray(fourStars);
-    shuffleArray(threeStars);
-}
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
->>>>>>> 290e136f456919c4a8a9a2d4c2ec5cd4227b90e2
 }
