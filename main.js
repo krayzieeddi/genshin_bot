@@ -28,7 +28,7 @@ client.once('ready', () => {
     console.log('kekw in the chat!');
 });
 
-client.on("message", (msg) => {
+client.on("message", async msg => {
     if (msg.content.startsWith(prefix)){
         switch(msg.content.substring(1).toLowerCase()){
             case "pull1r":
@@ -52,22 +52,12 @@ client.on("message", (msg) => {
                 msg.reply(`You are at ${pity5StarL} pity for 5* on the limited banner`);
                 break;
             case "pull10r":
-                multiRolls = [];
-                for(i = 0; i < 10; i++){
-                    urRoll = regularSinglePull();
-                    multiRolls.push(`./${urRoll.type}s/${urRoll.src}`);
-                }
-                msg.reply("Here's what you got!", { files: multiRolls })
+                multiRolls = await combineAllPic(regularPull);
+                msg.reply("Here's what you got!", { files: [multiRolls] })
                 break;
             case "pull10l":
-                let canvas = Canvas.createCanvas(1400, 500);
-                let ctx = canvas.getContext('2d');
-                multiRolls = [];
-                for(i = 0; i < 10; i++){
-                    urRoll = limitedSinglePull();
-                    multiRolls.push(`./${urRoll.type}s/${urRoll.src}`);
-                }
-                msg.reply("Here's what you got!", { files: multiRolls })
+                multiRolls = await combineAllPic(limitPull);
+                msg.reply("Here's what you got!", { files: [multiRolls] })
                 break;
         }
     }
@@ -75,7 +65,24 @@ client.on("message", (msg) => {
 
 client.login(Token.getToken());
 
-function limitedSinglePull() {
+async function combineAllPic(typeOfPull) {
+    let canvas = Canvas.createCanvas(1400, 560);
+    let ctx = canvas.getContext('2d');
+    let x = 0;
+    let y = 0;
+    for (i = 0; i < 10; i++) {
+        if (x >= 1400) {
+            x = 0;
+            y += 280;
+        }
+        urRoll = typeOfPull();
+        ctx.drawImage(await Canvas.loadImage(`./${urRoll.type}s/${urRoll.src}`), x, y, 280, 280);
+        x += 280;
+    }
+    return new Discord.MessageAttachment(canvas.toBuffer(), 'multipulls.png');
+}
+
+let limitPull = function limitedSinglePull() {
     updatePools(limitedBanner);
     let pool;
     let isRateUpPull = false;
@@ -118,7 +125,7 @@ function limitedSinglePull() {
     return ranObj = updatedPool[Math.floor(Math.random() * updatedPool.length)];
 }
 
-function regularSinglePull() {
+let regularPull = function regularSinglePull() {
     updatePools(regularBanner);
     let pool;
 
