@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const Canvas = require('canvas');
+const Token = require('./bottoken.js')
 
 const client = new Discord.Client();
 
@@ -72,7 +73,7 @@ client.on("message", (msg) => {
     }
 });
 
-client.login("Nzc3ODkxODE0NjM5NDAzMDI4.X7KCNQ.t2sGx5XAOZe8BvIvNvCcE6OuA-o");
+client.login(Token.getToken());
 
 function limitedSinglePull() {
     updatePools(limitedBanner);
