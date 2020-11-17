@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [
 
     {
@@ -31,38 +30,4 @@
         "availability": ["Sunday", "Wednesday", "Saturday"]
     }
 
-=======
-[
-
-    {
-        "name": "Decarabian",
-        "availability": ["Sunday", "Monday", "Thursday"]
-    },
-
-    {
-        "name": "Guyun",
-        "availability": ["Sunday", "Monday", "Thursday"]
-    },
-    
-    {
-        "name": "Boreal Wolf",
-        "availability": ["Sunday", "Tuesday", "Friday"]
-    },
-
-    {
-        "name": "Mist Veiled Elixir",
-        "availability": ["Sunday", "Tuesday", "Friday"]
-    },
-
-    {
-        "name": "Dandelion Gladiator",
-        "availability": ["Sunday", "Wednesday", "Saturday"]
-    },
-
-    {
-        "name": "Aerosidite",
-        "availability": ["Sunday", "Wednesday", "Saturday"]
-    }
-
->>>>>>> 1114ac11fa191fb260d0ae0695e55f1b693ffb6f
 ]
