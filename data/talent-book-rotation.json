@@ -1,0 +1,39 @@
+[
+
+    {
+        "name": "Freedom",
+        "availability": ["Sunday", "Monday", "Thursday"],
+        "characters": ["Amber", "Barbara", "Diona", "Sucrose", "Tartaglia"]
+    },
+
+    {
+        "name": "Prosperity",
+        "availability": ["Sunday", "Monday", "Thursday"],
+        "characters": ["Keqing","Ningguang","Qiqi"]
+    },
+    
+    {
+        "name": "Resistance",
+        "availability": ["Sunday", "Tuesday", "Friday"],
+        "characters": ["Traveler","Bennett","Diluc","Jean","Mona","Noelle","Razor"]
+    },
+
+    {
+        "name": "Diligence",
+        "availability": ["Sunday", "Tuesday", "Friday"],
+        "characters": ["Chongyun","Xiangling"]
+    },
+
+    {
+        "name": "Ballad",
+        "availability": ["Sunday", "Wednesday", "Saturday"],
+        "characters": ["Fischl","Kaeya","Lisa","Venti"]
+    },
+
+    {
+        "name": "Gold",
+        "availability": ["Sunday", "Wednesday", "Saturday"],
+        "characters": ["Beidou", "Xingqiu"]
+    }
+
+]

@@ -1,0 +1,33 @@
+[
+
+    {
+        "name": "Decarabian",
+        "availability": ["Sunday", "Monday", "Thursday"]
+    },
+
+    {
+        "name": "Guyun",
+        "availability": ["Sunday", "Monday", "Thursday"]
+    },
+    
+    {
+        "name": "Boreal Wolf",
+        "availability": ["Sunday", "Tuesday", "Friday"]
+    },
+
+    {
+        "name": "Mist Veiled Elixir",
+        "availability": ["Sunday", "Tuesday", "Friday"]
+    },
+
+    {
+        "name": "Dandelion Gladiator",
+        "availability": ["Sunday", "Wednesday", "Saturday"]
+    },
+
+    {
+        "name": "Aerosidite",
+        "availability": ["Sunday", "Wednesday", "Saturday"]
+    }
+
+]
