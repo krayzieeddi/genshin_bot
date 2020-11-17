@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const Canvas = require('canvas');
 
 const client = new Discord.Client();
 
@@ -58,6 +59,8 @@ client.on("message", (msg) => {
                 msg.reply("Here's what you got!", { files: multiRolls })
                 break;
             case "pull10l":
+                let canvas = Canvas.createCanvas(1400, 500);
+                let ctx = canvas.getContext('2d');
                 multiRolls = [];
                 for(i = 0; i < 10; i++){
                     urRoll = limitedSinglePull();
@@ -69,7 +72,7 @@ client.on("message", (msg) => {
     }
 });
 
-client.login("Nzc3ODkxODE0NjM5NDAzMDI4.X7KCNQ.CEGn0WYlz9lEnvtLOtwRzpWRs3o");
+client.login("Nzc3ODkxODE0NjM5NDAzMDI4.X7KCNQ.t2sGx5XAOZe8BvIvNvCcE6OuA-o");
 
 function limitedSinglePull() {
     updatePools(limitedBanner);

@@ -9,6 +9,16 @@
   "author": "me and the bois",
   "license": "ISC",
   "dependencies": {
+    "canvas": "^2.6.1",
     "discord.js": "^12.4.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krayzieeddi/genshin_bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krayzieeddi/genshin_bot/issues"
+  },
+  "homepage": "https://github.com/krayzieeddi/genshin_bot#readme"
 }
